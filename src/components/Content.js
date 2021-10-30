@@ -1,15 +1,11 @@
 import { Button, Table, Tag, Avatar, Breadcrumb, Typography } from "antd";
 import * as Identicon from "identicon.js";
-import { useState } from "react";
 
-import AddUser from './AddUser';
 import u from '../util/users';
 
 import './Content.css';
 
 function Content() {
-	const [users, setUsers] = useState(u);
-
 	const columns = [
 		{
 			dataIndex: 'key',
@@ -49,13 +45,12 @@ function Content() {
 			key: 'options',
 			render: (user) => (
 				<div className='options-container'>
-					<Button type='primary' onClick={() => { if (!user.messaged) setUsers([...users.filter(u => u.key !== user.key), { ...user, messaged: true }]) }}>Message</Button>
-					<Button onClick={() => setUsers(users.filter(u => u.key !== user.key))}>Delete</Button>
+					<Button type='primary'>Message</Button>
+					<Button>Delete</Button>
 				</div>
 			),
 		}
 	];
-
 
 	return (
 		<div className='content'>
@@ -67,9 +62,9 @@ function Content() {
 			</div>
 			<div className='controls'>
 				<Typography.Title>Users</Typography.Title>
-				<AddUser addUser={user => setUsers([...users, user])} />
+				<Button type='primary'>Add user</Button>
 			</div>
-			<Table dataSource={users} columns={columns} />
+			<Table dataSource={u} columns={columns} />
 		</div>
 
 	);
